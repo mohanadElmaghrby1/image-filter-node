@@ -14,13 +14,13 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   app.use(bodyParser.json());
 
   app.get("/filteredimage",
-   async ( req , res) => {
+   async ( req: Request , res: Response) => {
     let {image_url} = req.query;
     if (!image_url){
       res.status(400).send({message:'image_url is required'});
     }
     const filter_url = await filterImageFromURL(image_url);
-    res.status(200).send({image_path:filter_url});
+    res.status(200).sendFile(filter_url);
   });
   
   // Root Endpoint
